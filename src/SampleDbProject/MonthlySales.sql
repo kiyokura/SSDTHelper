@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[MonthlySales]
+(
+  [ID] INT NOT NULL PRIMARY KEY IDENTITY,
+  [ShopID] INT NOT NULL, 
+  [SalesMonth] DATETIME NOT NULL, 
+  [Sales] DECIMAL NOT NULL
+)

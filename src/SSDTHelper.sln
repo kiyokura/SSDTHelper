@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSDTHelper", "SSDTHelper\SS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSDTHelperTest", "SSDTHelperTest\SSDTHelperTest.csproj", "{36F18EF2-4422-4EC3-8BF1-645B8236311A}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SampleDbProject", "SampleDbProject\SampleDbProject.sqlproj", "{66048993-28E7-4B80-976B-011BA504412F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleDbProjectTest", "SampleDbProjectTest\SampleDbProjectTest.csproj", "{7824A799-D176-4C97-9C4C-6B8D7A4493E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,16 @@ Global
 		{36F18EF2-4422-4EC3-8BF1-645B8236311A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F18EF2-4422-4EC3-8BF1-645B8236311A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F18EF2-4422-4EC3-8BF1-645B8236311A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66048993-28E7-4B80-976B-011BA504412F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7824A799-D176-4C97-9C4C-6B8D7A4493E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7824A799-D176-4C97-9C4C-6B8D7A4493E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7824A799-D176-4C97-9C4C-6B8D7A4493E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7824A799-D176-4C97-9C4C-6B8D7A4493E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[DailySales]
+(
+  [ID] INT NOT NULL PRIMARY KEY IDENTITY, 
+  [ShopID] INT NOT NULL, 
+  [SalesDate] DATETIME NOT NULL, 
+  [Sales] DECIMAL NOT NULL
+)
