@@ -81,7 +81,7 @@ namespace SSDTHelper
           if (actualValue.ToString() != expectedValuevalDt.ToString())
           {
             // ToDo: ouptput colmun Name and RowNumber, and values;
-            message = $"contents do not match: rowindex [{rowindex}] , column name [{col}] , actual [{expectedValuevalDt}], expected [{actualValue}]";
+            message = $"contents do not match: rowindex [{rowindex}] , column name [{col}] , actual [{actualValue}], expected [{expectedValuevalDt}]";
             return false;
           }
         }
