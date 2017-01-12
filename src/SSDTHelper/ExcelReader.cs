@@ -10,6 +10,8 @@ namespace SSDTHelper
   /// </summary>
   public class ExcelReader
   {
+    const string COMMENT_COLUMN_HEADER = "**comment**";
+
     /// <summary>
     /// Reads Excel file and creates DataTable
     /// </summary>
@@ -50,18 +52,23 @@ namespace SSDTHelper
         {
           using (var ws = xl.Workbook.Worksheets[sheetName])
           {
-            var dt = new DataTable();
-            dt.TableName = sheetName;
+            var dt = new DataTable() { TableName = sheetName };
 
-            foreach (var headerCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+            var endColumn = ws.Dimension.End.Column;
+            foreach (var cell in ws.Cells[1, 1, 1, endColumn])
             {
-              dt.Columns.Add(headerCell.Text);
+              if (cell.End.Column == ws.Dimension.End.Column && cell.Text == COMMENT_COLUMN_HEADER)
+              {
+                endColumn = cell.End.Column - 1;
+                break;
+              }
+              dt.Columns.Add(cell.Text);
             }
 
             var startRow = 2;
             for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
             {
-              var wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+              var wsRow = ws.Cells[rowNum, 1, rowNum, endColumn];
               DataRow row = dt.Rows.Add();
               foreach (var cell in wsRow)
               {
