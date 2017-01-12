@@ -20,7 +20,7 @@ namespace SSDTHelper
     /// </returns>
     public static object IsMatch(IEnumerable<dynamic> result, string excelFile, string sheetName, out string message)
     {
-      var dt = ExcelReader.Read(excelFile, "ResultCheckSheet");
+      var dt = ExcelReader.Read(excelFile, sheetName);
       return DataComparer.IsMatch(dt, result, out message);
     }
 
@@ -36,7 +36,7 @@ namespace SSDTHelper
     /// </returns>
     public static object IsMatch(SqlDataReader result, string excelFile, string sheetName, out string message)
     {
-      var dt = ExcelReader.Read(excelFile, "ResultCheckSheet");
+      var dt = ExcelReader.Read(excelFile, sheetName);
       return DataComparer.IsMatch(dt, result, out message);
     }
   }
