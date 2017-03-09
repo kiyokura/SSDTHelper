@@ -78,7 +78,7 @@ namespace SSDTHelper
           var actualValue = row[col];
           var expectedValuevalDt = expected.Rows[rowindex][col];
 
-          if (actualValue.ToString() != expectedValuevalDt.ToString())
+          if (Convert.ToString(actualValue) != Convert.ToString(expectedValuevalDt))
           {
             // ToDo: ouptput colmun Name and RowNumber, and values;
             message = $"contents do not match: rowindex [{rowindex}] , column name [{col}] , actual [{actualValue}], expected [{expectedValuevalDt}]";

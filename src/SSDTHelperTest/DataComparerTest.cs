@@ -204,6 +204,26 @@ namespace SSDTHelperTest
 
     }
 
+    [Test]
+    public void CompareUnmatchTest1()
+    {
+      var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "People");
+
+      var loader = new SSDTHelper.DataLoader();
+      loader.ConnectionString = Config.ConnectionString;
+      loader.Load(dt, true);
+
+      using (var cn = new System.Data.SqlClient.SqlConnection(Config.ConnectionString))
+      {
+        cn.Open();
+        var result = cn.Query(@"SELECT Id , null as NAME, Age FROM People ORDER BY ID");
+        string message;
+        var ismatch = SSDTHelper.DataComparer.IsMatch(dt, result, out message);
+
+        Assert.AreEqual(false, ismatch);
+      }
+    }
+
 
   }
 }
