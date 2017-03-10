@@ -39,7 +39,7 @@ namespace SampleDbProjectTest
 
         // check result set
         var message = "";
-        var ismatch = SSDTHelper.ResultCheker.IsMatch(resultset, excelFile, "ResultCheckSheet", out message);
+        var ismatch = SSDTHelper.ResultChecker.IsMatch(resultset, excelFile, "ResultCheckSheet", out message);
         Assert.AreEqual(true, ismatch, message);
       }
     }
