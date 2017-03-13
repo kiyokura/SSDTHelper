@@ -59,6 +59,22 @@ namespace SSDTHelperTest
               [DecCol06]  DECIMAL(11,4)           NULL,
               PRIMARY KEY CLUSTERED ([Id] ASC)
           );
+
+          CREATE TABLE [dbo].[NullValue] (
+              [Id]   INT           NOT NULL,
+              [IntCol01]  INT             NULL,
+              [DecCol01]  DECIMAL(9,2)    NULL,
+              [DateCol01]  DATE           NULL,
+              [DateTimeCol01]  DATETIME   NULL,
+              [VarCharCol01]  VARCHAR(8)  NULL,
+              PRIMARY KEY CLUSTERED ([Id] ASC)
+          );
+
+          CREATE TABLE [dbo].[BlankRow] (
+              [Id]   INT           NOT NULL,
+              [Name] NVARCHAR (50) NULL,
+              PRIMARY KEY CLUSTERED ([Id] ASC)
+          );
         ";
         cn.Execute(sql);
       }
