@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -72,7 +73,14 @@ namespace SSDTHelper
               DataRow row = dt.Rows.Add();
               foreach (var cell in wsRow)
               {
-                row[cell.Start.Column - 1] = cell.Text;
+                if(cell.Text == "NULL")
+                {
+                  row[cell.Start.Column - 1] = DBNull.Value;
+                }
+                else
+                {
+                  row[cell.Start.Column - 1] = cell.Text;
+                }
               }
             }
             dts.Add(dt);

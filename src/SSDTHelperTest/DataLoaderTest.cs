@@ -123,5 +123,27 @@ namespace SSDTHelperTest
       }
     }
 
+    [Test]
+    public void Load_NullValue()
+    {
+      var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "NullValue");
+
+      var loader = new SSDTHelper.DataLoader();
+      loader.ConnectionString = Config.ConnectionString;
+      loader.Load(dt);
+
+      using (var cn = new System.Data.SqlClient.SqlConnection(Config.ConnectionString))
+      {
+        cn.Open();
+        var sql = @"SELECT * FROM NullValue ORDER BY ID";
+        var result = cn.Query(sql).ToList();
+        
+        Assert.IsNull(result[0].IntCol01, $"IntCol01がNULLではない");
+        Assert.IsNull(result[0].DecCol01, $"DecCol01がNULLではない");
+        Assert.IsNull(result[0].DateCol01, $"DateCol01がNULLではない");
+        Assert.IsNull(result[0].DateTimeCol01, $"DateTimeCol01がNULLではない");
+        Assert.IsNull(result[0].VarCharCol01, $"VarCharCol01がNULLではない");
+      }
+    }
   }
 }
