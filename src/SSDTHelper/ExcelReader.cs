@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace SSDTHelper
 {
@@ -70,16 +71,20 @@ namespace SSDTHelper
             for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
             {
               var wsRow = ws.Cells[rowNum, 1, rowNum, endColumn];
-              DataRow row = dt.Rows.Add();
-              foreach (var cell in wsRow)
+
+              if (wsRow.Any(x => !string.IsNullOrEmpty(x.Text)))
               {
-                if(cell.Text == "NULL")
+                DataRow row = dt.Rows.Add();
+                foreach (var cell in wsRow)
                 {
-                  row[cell.Start.Column - 1] = DBNull.Value;
-                }
-                else
-                {
-                  row[cell.Start.Column - 1] = cell.Text;
+                  if (cell.Text == "NULL")
+                  {
+                    row[cell.Start.Column - 1] = DBNull.Value;
+                  }
+                  else
+                  {
+                    row[cell.Start.Column - 1] = cell.Text;
+                  }
                 }
               }
             }
