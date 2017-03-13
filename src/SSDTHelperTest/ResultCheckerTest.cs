@@ -41,7 +41,7 @@ namespace SSDTHelperTest
 
         var sheetName = "ResultCheckSheet";
         string message;
-        var ismatch = SSDTHelper.ResultCheker.IsMatch(result, excelFile, sheetName, out message);
+        var ismatch = SSDTHelper.ResultChecker.IsMatch(result, excelFile, sheetName, out message);
 
         Assert.AreEqual(true, ismatch, message);
       }
@@ -72,7 +72,7 @@ namespace SSDTHelperTest
           {
             var sheetName = "ResultCheckSheet";
             string message;
-            var ismatch = SSDTHelper.ResultCheker.IsMatch(dr, excelFile, sheetName, out message);
+            var ismatch = SSDTHelper.ResultChecker.IsMatch(dr, excelFile, sheetName, out message);
 
             Assert.AreEqual(true, ismatch, message);
 

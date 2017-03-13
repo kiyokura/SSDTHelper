@@ -6,7 +6,7 @@ namespace SSDTHelper
   /// <summary>
   /// Compare the resultset with the excel data sheet.
   /// </summary>
-  public static class ResultCheker
+  public static class ResultChecker
   {
     /// <summary>
     /// Compare the resultset with the excel data sheet.

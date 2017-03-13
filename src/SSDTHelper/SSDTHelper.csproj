@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ResultCheker.cs" />
+    <Compile Include="ResultChecker.cs" />
     <Compile Include="SqlDatabaseTestService.cs" />
     <Compile Include="DataComparer.cs" />
     <Compile Include="ExcelReader.cs" />
