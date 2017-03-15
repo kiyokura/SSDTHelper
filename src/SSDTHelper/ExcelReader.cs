@@ -54,6 +54,11 @@ namespace SSDTHelper
         {
           using (var ws = xl.Workbook.Worksheets[sheetName])
           {
+            if(ws == null)
+            {
+              throw new ArgumentException($"'{sheetName}’ is not found.");
+            }
+
             var dt = new DataTable() { TableName = sheetName };
 
             var endColumn = ws.Dimension.End.Column;
