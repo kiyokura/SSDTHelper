@@ -70,7 +70,7 @@ namespace SSDTHelperTest
           cmd.CommandType = CommandType.Text;
           using (var dr = cmd.ExecuteReader())
           {
-            var sheetName = "ResultCheckSheet";
+            var sheetName = "ResultCheckSheet2";
             string message;
             var ismatch = SSDTHelper.ResultChecker.IsMatch(dr, excelFile, sheetName, out message);
 
