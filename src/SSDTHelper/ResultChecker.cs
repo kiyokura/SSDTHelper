@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace SSDTHelper
@@ -18,6 +19,7 @@ namespace SSDTHelper
     /// <returns>
     /// true : match, false: do not match.
     /// </returns>
+    [Obsolete]
     public static object IsMatch(IEnumerable<dynamic> result, string excelFile, string sheetName, out string message)
     {
       var dt = ExcelReader.Read(excelFile, sheetName);

@@ -151,8 +151,8 @@ namespace SSDTHelperTest
 
       var row = dt.Rows.Add();
       row["Id"] = "1";
-      row["DateCol01"] = "2017/01/01 0:00:00";
-      row["DateCol02"] = "2017/01/01 0:00:00";
+      row["DateCol01"] = "2017/01/01";
+      row["DateCol02"] = "2017/01/01";
       row["DatetimeCol01"] = "2017/01/01 0:00:00";
       row["DatetimeCol02"] = "2017/12/31 16:00:00";
       row["DatetimeCol03"] = "2017/12/31 16:00:00";

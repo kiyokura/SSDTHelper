@@ -19,6 +19,7 @@ namespace SSDTHelper
     /// <returns>
     /// true : match, false: do not match.
     /// </returns>
+    [Obsolete]
     public static bool IsMatch(DataTable expected, IEnumerable<dynamic> actual, out string message)
     {
       if (expected == null)
@@ -128,7 +129,7 @@ namespace SSDTHelper
         foreach (var col in expected.Columns)
         {
           var colName = ((DataColumn)col).ColumnName.ToUpper();
-          var actualValue = actual[colName];
+          var actualValue = GetActualValue(actual, colName);
           var expectedValue = expected.Rows[rowindex][colName];
 
           if (actualValue.ToString() != expectedValue.ToString())
@@ -151,6 +152,19 @@ namespace SSDTHelper
 
       message = "";
       return true;
+    }
+    
+    private static object GetActualValue(System.Data.SqlClient.SqlDataReader actual, string colName)
+    {
+      var providerType = actual.GetSchemaTable().AsEnumerable()
+                               .Where(x => string.Compare(x["ColumnName"].ToString(), colName, true) == 0)
+                               .Select(x => (SqlDbType)(int)x["ProviderType"]).FirstOrDefault();
+
+      if (providerType == SqlDbType.Date)
+      {
+        return ((DateTime)actual[colName]).ToShortDateString();
+      }
+      return actual[colName];
     }
   }
 }
