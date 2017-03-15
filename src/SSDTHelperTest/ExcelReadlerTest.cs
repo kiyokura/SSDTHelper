@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 
 namespace SSDTHelperTest
 {
@@ -105,6 +106,16 @@ namespace SSDTHelperTest
 
       // 9999999.00
       Assert.AreEqual("9999999.00", dt.Rows[0]["DecCol04"]);
+    }
+
+    [Test]
+    public void ReadExcel_SheetNotFound()
+    {
+      Assert.Throws<ArgumentException>(() =>
+      {
+        var excelFile = Util.GetLocalFileFullPath("TestData.xlsx");
+        SSDTHelper.ExcelReader.Read(excelFile, "Dummy");
+      });
     }
   }
 }
