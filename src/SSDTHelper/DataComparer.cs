@@ -160,7 +160,7 @@ namespace SSDTHelper
                                .Where(x => string.Compare(x["ColumnName"].ToString(), colName, true) == 0)
                                .Select(x => (SqlDbType)(int)x["ProviderType"]).FirstOrDefault();
 
-      if (providerType == SqlDbType.Date)
+      if (providerType == SqlDbType.Date && actual[colName] != DBNull.Value)
       {
         return ((DateTime)actual[colName]).ToShortDateString();
       }
