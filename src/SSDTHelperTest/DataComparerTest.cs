@@ -224,6 +224,33 @@ namespace SSDTHelperTest
       }
     }
 
+    [Test]
+    public void CompareNullValueTest()
+    {
+      var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "NullValue");
 
+      var loader = new SSDTHelper.DataLoader();
+      loader.ConnectionString = Config.ConnectionString;
+      loader.Load(dt, true);
+
+      using (var cn = new System.Data.SqlClient.SqlConnection(Config.ConnectionString))
+      {
+        cn.Open();
+
+        // execute
+        using (var cmd = cn.CreateCommand())
+        {
+          cmd.CommandText = "SELECT Id,IntCol01,DecCol01,DateCol01,DateTimeCol01,VarCharCol01 FROM NullValue ORDER BY Id";
+          cmd.CommandType = CommandType.Text;
+          using (var dr = cmd.ExecuteReader())
+          {
+            string message;
+            var ismatch = SSDTHelper.DataComparer.IsMatch(dt, dr, out message);
+
+            Assert.AreEqual(true, ismatch, message);
+          }
+        }
+      }
+    }
   }
 }
