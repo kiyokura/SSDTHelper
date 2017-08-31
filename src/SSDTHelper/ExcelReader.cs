@@ -49,6 +49,8 @@ namespace SSDTHelper
         {
           xl.Load(st);
         }
+        
+        xl.Workbook.Calculate();
 
         foreach (var sheetName in sheetNames)
         {

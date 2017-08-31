@@ -117,5 +117,17 @@ namespace SSDTHelperTest
         SSDTHelper.ExcelReader.Read(excelFile, "Dummy");
       });
     }
+
+    [Test]
+    public void ReadExcel_EvaluateFormula()
+    {
+      var excelFile = Util.GetLocalFileFullPath("TestData.xlsx");
+      var dt = SSDTHelper.ExcelReader.Read(excelFile, "EvaluateFormula");
+      
+      Assert.AreEqual(DateTime.Now.ToShortDateString(), dt.Rows[0]["Today"]);
+      Assert.AreEqual(DateTime.Now.Year.ToString(), dt.Rows[0]["Year"]);
+      Assert.AreEqual(DateTime.Now.Month.ToString(), dt.Rows[0]["Month"]);
+      Assert.AreEqual(DateTime.Now.Day.ToString(), dt.Rows[0]["Day"]);
+    }
   }
 }
