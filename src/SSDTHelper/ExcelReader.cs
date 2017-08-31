@@ -26,7 +26,25 @@ namespace SSDTHelper
     /// </remarks>
     public static DataTable Read(string excellFilePath, string sheetName)
     {
-      return Read(excellFilePath, (new string[] { sheetName }))[0];
+      return Read(excellFilePath, sheetName, sheetName);
+    }
+
+    /// <summary>
+    /// Reads Excel file and creates DataTable
+    /// </summary>
+    /// <param name="excellFilePath">The path of the target excel file.</param>
+    /// <param name="sheetName">The name of the target sheet.</param>
+    /// <param name="tableName">The name of the target table.</param>
+    /// <returns>DataTable object</returns>
+    /// <remarks>
+    /// Read a specified sheet of Excel file into DataTable.
+    /// The sheet name is set in the TableName property of the DataTable.
+    /// </remarks>
+    public static DataTable Read(string excellFilePath, string sheetName, string tableName)
+    {
+      var dic = new Dictionary<string, string>();
+      dic.Add(sheetName, tableName);
+      return Read(excellFilePath, dic)[0];
     }
 
     /// <summary>
@@ -39,29 +57,45 @@ namespace SSDTHelper
     /// Read a specified sheet of Excel file into DataTable.
     /// The sheet name is set in the TableName property of the DataTable.
     /// </remarks>
-    public static IList<DataTable> Read(string path, IEnumerable<string> sheetNames)
+    public static IList<DataTable> Read(string excellFilePath, IEnumerable<string> sheetNames)
     {
+      return Read(excellFilePath, sheetNames.ToDictionary<string, string>(x => x));
+    }
+
+    /// <summary>
+    /// Reads Excel file and creates DataTable
+    /// </summary>
+    /// <param name="excellFilePath">The path of the target excel file.</param>
+    /// <param name="SheetAndTableNames">Dictopnay of The names of the target sheets and tables.</param>
+    /// <returns>DataTable objects</returns>
+    /// <remarks>
+    /// Read a specified sheet of Excel file into DataTable.
+    /// The sheet name is set in the TableName property of the DataTable.
+    /// </remarks>
+    public static IList<DataTable> Read(string excellFilePath, IDictionary<string, string> SheetAndTableNames)
+    {
+
       using (var xl = new ExcelPackage())
       {
         var dts = new List<DataTable>();
 
-        using (var st = File.OpenRead(path))
+        using (var st = File.OpenRead(excellFilePath))
         {
           xl.Load(st);
         }
-        
+
         xl.Workbook.Calculate();
 
-        foreach (var sheetName in sheetNames)
+        foreach (var sheetName in SheetAndTableNames.Keys)
         {
           using (var ws = xl.Workbook.Worksheets[sheetName])
           {
-            if(ws == null)
+            if (ws == null)
             {
               throw new ArgumentException($"'{sheetName}’ is not found.");
             }
 
-            var dt = new DataTable() { TableName = sheetName };
+            var dt = new DataTable() { TableName = SheetAndTableNames[sheetName] };
 
             var endColumn = ws.Dimension.End.Column;
             foreach (var cell in ws.Cells[1, 1, 1, endColumn])
@@ -101,6 +135,7 @@ namespace SSDTHelper
         }
         return dts;
       }
+
     }
   }
 }
