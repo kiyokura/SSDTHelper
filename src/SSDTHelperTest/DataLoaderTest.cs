@@ -8,7 +8,7 @@ namespace SSDTHelperTest
   [TestFixture]
   public class DataLoaderTest
   {
- 
+
     [OneTimeSetUp]
     public void Init()
     {
@@ -137,7 +137,7 @@ namespace SSDTHelperTest
         cn.Open();
         var sql = @"SELECT * FROM NullValue ORDER BY ID";
         var result = cn.Query(sql).ToList();
-        
+
         Assert.IsNull(result[0].IntCol01, $"IntCol01がNULLではない");
         Assert.IsNull(result[0].DecCol01, $"DecCol01がNULLではない");
         Assert.IsNull(result[0].DateCol01, $"DateCol01がNULLではない");

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace SSDTHelperTest
 {
@@ -14,6 +15,30 @@ namespace SSDTHelperTest
       var dt = SSDTHelper.ExcelReader.Read(excelFile, tableName);
 
       Assert.AreEqual("People", dt.TableName);
+      Assert.AreEqual(3, dt.Rows.Count);
+
+      Assert.AreEqual("1", dt.Rows[0][0]);
+      Assert.AreEqual("Hoge", dt.Rows[0][1]);
+      Assert.AreEqual("20", dt.Rows[0][2]);
+
+      Assert.AreEqual("2", dt.Rows[1][0]);
+      Assert.AreEqual("Fuga", dt.Rows[1][1]);
+      Assert.AreEqual("99", dt.Rows[1][2]);
+
+      Assert.AreEqual("3", dt.Rows[2][0]);
+      Assert.AreEqual("FugaFuga", dt.Rows[2][1]);
+      Assert.AreEqual("0", dt.Rows[2][2]);
+    }
+
+    [Test]
+    public void ReadExcel_SingleSheetToDifferentNameTable()
+    {
+      var excelFile = Util.GetLocalFileFullPath("TestData.xlsx");
+      var sheetName = "People";
+      var tableName = "PeopleDataTable";
+      var dt = SSDTHelper.ExcelReader.Read(excelFile, sheetName, tableName);
+
+      Assert.AreEqual("PeopleDataTable", dt.TableName);
       Assert.AreEqual(3, dt.Rows.Count);
 
       Assert.AreEqual("1", dt.Rows[0][0]);
@@ -53,6 +78,45 @@ namespace SSDTHelperTest
 
 
       Assert.AreEqual("Salary", dt[1].TableName);
+      Assert.AreEqual(3, dt[1].Rows.Count);
+
+      Assert.AreEqual("1", dt[1].Rows[0][0]);
+      Assert.AreEqual("3000", dt[1].Rows[0][1]);
+
+      Assert.AreEqual("2", dt[1].Rows[1][0]);
+      Assert.AreEqual("5000", dt[1].Rows[1][1]);
+
+      Assert.AreEqual("3", dt[1].Rows[2][0]);
+      Assert.AreEqual("4000", dt[1].Rows[2][1]);
+    }
+
+    [Test]
+    public void ReadExcel_MultiSheetsToDifferentNameTable()
+    {
+      var excelFile = Util.GetLocalFileFullPath("TestData.xlsx");
+      var dic = new Dictionary<string, string>();
+      dic.Add("People", "PeopleDataTable");
+      dic.Add("Salary", "SalaryDataTable");
+
+      var dt = SSDTHelper.ExcelReader.Read(excelFile, dic);
+
+      Assert.AreEqual("PeopleDataTable", dt[0].TableName);
+      Assert.AreEqual(3, dt[0].Rows.Count);
+
+      Assert.AreEqual("1", dt[0].Rows[0][0]);
+      Assert.AreEqual("Hoge", dt[0].Rows[0][1]);
+      Assert.AreEqual("20", dt[0].Rows[0][2]);
+
+      Assert.AreEqual("2", dt[0].Rows[1][0]);
+      Assert.AreEqual("Fuga", dt[0].Rows[1][1]);
+      Assert.AreEqual("99", dt[0].Rows[1][2]);
+
+      Assert.AreEqual("3", dt[0].Rows[2][0]);
+      Assert.AreEqual("FugaFuga", dt[0].Rows[2][1]);
+      Assert.AreEqual("0", dt[0].Rows[2][2]);
+
+
+      Assert.AreEqual("SalaryDataTable", dt[1].TableName);
       Assert.AreEqual(3, dt[1].Rows.Count);
 
       Assert.AreEqual("1", dt[1].Rows[0][0]);
@@ -123,7 +187,7 @@ namespace SSDTHelperTest
     {
       var excelFile = Util.GetLocalFileFullPath("TestData.xlsx");
       var dt = SSDTHelper.ExcelReader.Read(excelFile, "EvaluateFormula");
-      
+
       Assert.AreEqual(DateTime.Now.ToShortDateString(), dt.Rows[0]["Today"]);
       Assert.AreEqual(DateTime.Now.Year.ToString(), dt.Rows[0]["Year"]);
       Assert.AreEqual(DateTime.Now.Month.ToString(), dt.Rows[0]["Month"]);
