@@ -122,27 +122,32 @@ namespace SSDTHelper
         return false;
       }
 
+      // number of expected rows
+      var expectedRowCount = expected.Rows.Count;
+
       // content of data
       var rowindex = 0;
       while (actual.Read())
       {
-        foreach (var col in expected.Columns)
+        if(rowindex < expectedRowCount)
         {
-          var colName = ((DataColumn)col).ColumnName.ToUpper();
-          var actualValue = GetActualValue(actual, colName);
-          var expectedValue = expected.Rows[rowindex][colName];
-
-          if (actualValue.ToString() != expectedValue.ToString())
+          foreach (var col in expected.Columns)
           {
-            message = $"contents do not match: rowindex [{rowindex}] , column name [{col}] , expected [{expectedValue}], actual [{actualValue}]";
-            return false;
+            var colName = ((DataColumn)col).ColumnName.ToUpper();
+            var actualValue = GetActualValue(actual, colName);
+            var expectedValue = expected.Rows[rowindex][colName];
+
+            if (actualValue.ToString() != expectedValue.ToString())
+            {
+              message = $"contents do not match: rowindex [{rowindex}] , column name [{col}] , expected [{expectedValue}], actual [{actualValue}]";
+              return false;
+            }
           }
         }
         rowindex += 1;
       }
 
-      // numbers of rows
-      var expectedRowCount = expected.Rows.Count;
+      // numbers of actual rows
       var actualRowCount = rowindex;
       if (actualRowCount != expectedRowCount)
       {

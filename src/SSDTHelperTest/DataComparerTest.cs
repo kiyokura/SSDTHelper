@@ -225,6 +225,77 @@ namespace SSDTHelperTest
     }
 
     [Test]
+    public void CompareUnmatchTest2()
+    {
+      var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "People");
+
+      var loader = new SSDTHelper.DataLoader();
+      loader.ConnectionString = Config.ConnectionString;
+      loader.Load(dt, true);
+
+      using (var cn = new System.Data.SqlClient.SqlConnection(Config.ConnectionString))
+      {
+        cn.Open();
+        using (var cmd = cn.CreateCommand())
+        {
+          cmd.CommandType = CommandType.Text;
+          cmd.CommandText = @"
+            SELECT
+              Id, Name, Age 
+            FROM
+              People
+            UNION ALL
+            SELECT
+              999 as Id, 'Foo' as Name, 99 as Age";
+
+          using (var dr = cmd.ExecuteReader())
+          {
+            var message = "";
+            var ismatch = SSDTHelper.DataComparer.IsMatch(dt, dr, out message);
+
+            // Number of expected rows and actual rows is unmatch (more actual than expected)
+            Assert.AreEqual(false, ismatch);
+          }
+        }
+      }
+    }
+
+    [Test]
+    public void CompareUnmatchTest3()
+    {
+      var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "People");
+
+      var loader = new SSDTHelper.DataLoader();
+      loader.ConnectionString = Config.ConnectionString;
+      loader.Load(dt, true);
+
+      using (var cn = new System.Data.SqlClient.SqlConnection(Config.ConnectionString))
+      {
+        cn.Open();
+        using (var cmd = cn.CreateCommand())
+        {
+          cmd.CommandType = CommandType.Text;
+          cmd.CommandText = @"
+            SELECT
+              Id, Name, Age
+            FROM
+              People
+            WHERE
+              Age > 20";
+
+          using (var dr = cmd.ExecuteReader())
+          {
+            var message = "";
+            var ismatch = SSDTHelper.DataComparer.IsMatch(dt, dr, out message);
+
+            // Number of expected rows and actual rows is unmatch (more expected than actual)
+            Assert.AreEqual(false, ismatch);
+          }
+        }
+      }
+    }
+
+    [Test]
     public void CompareNullValueTest()
     {
       var dt = SSDTHelper.ExcelReader.Read(Util.GetLocalFileFullPath("TestData.xlsx"), "NullValue");
