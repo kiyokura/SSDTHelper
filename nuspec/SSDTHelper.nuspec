@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>SSDTHelper</id>
+        <version>0.4.0</version>
+        <title>SSDTHelper</title>
+        <authors>Narami Kiyokura</authors>
+        <owners>Narami Kiyokura</owners>
+        <licenseUrl>https://github.com/kiyokura/SSDTHelper/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/kiyokura/SSDTHelper</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Support Libraly for SQL Server Data Tools 14.x</description>
+        <summary>Support Libraly for SQL Server Data Tools 14.x</summary>
+        <releaseNotes>See. https://github.com/kiyokura/SSDTHelper/releases/tag/v0.4.0</releaseNotes>
+        <copyright>Copyright © 2017 Narami Kiyokura</copyright>
+        <language>es-US</language>
+        <dependencies>
+            <dependency id="EPPlus" version="4.1.0" />
+            <dependency id="System.Data.SqlLocalDb" version="1.15.0" />
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.Data.Tools.Schema.Sql.UnitTesting" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+</package>
